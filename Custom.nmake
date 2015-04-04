@@ -1,0 +1,30 @@
+#
+
+include ..\config.nmake
+
+all: rozofs
+
+foo:: 
+	cd rozofs
+	$(MAKE) /$(MAKEFLAGS) -f Makefile.nmake
+	cd ..
+
+clean:
+	cd rozofs
+	$(MAKE) /$(MAKEFLAGS) -f Makefile.nmake clean
+	cd ..
+
+distclean: clean
+	cd rozofs
+	$(MAKE) /$(MAKEFLAGS) -f Makefile.nmake distclean
+	cd ..
+
+maintainer-clean: distclean
+	cd rozofs
+	$(MAKE) /$(MAKEFLAGS) -f Makefile.nmake maintainer-clean
+	cd ..
+
+install-plugins:
+!IFDEF ENABLE_LIBWIRESHARK
+	xcopy rozofs\*.dll ..\$(INSTALL_DIR)\plugins\ /d
+!ENDIF
